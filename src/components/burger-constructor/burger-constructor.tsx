@@ -2,7 +2,7 @@ import { FC, useMemo } from 'react';
 import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
-import { userSelector } from '../../services/userSlice';
+import { userSelector } from '../../services/user/userSlice';
 import { useNavigate } from 'react-router-dom';
 import {
   bunsSelector,
@@ -11,7 +11,7 @@ import {
   orderInfoSelector,
   orderRequestSelector,
   resetConstructor
-} from '../../services/burgerSlice';
+} from '../../services/constructor/burgerSlice';
 
 type TConstructorItems = {
   ingredients: Array<TConstructorIngredient>;

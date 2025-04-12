@@ -2,13 +2,14 @@ import { getFeedsApi, getOrdersApi } from '@api';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
 
-type TFeedState = {
+export type TFeedState = {
   orders: TOrder[];
   total: number;
   totalToday: number;
   loading: boolean;
   error: string | null;
   userOrders: TOrder[];
+  userOrdersError: string | null;
 };
 
 const initialState: TFeedState = {
@@ -17,7 +18,8 @@ const initialState: TFeedState = {
   totalToday: 0,
   loading: false,
   error: null,
-  userOrders: []
+  userOrders: [],
+  userOrdersError: null
 };
 
 export const getFeed = createAsyncThunk('/orders/all', async () =>
@@ -54,8 +56,8 @@ export const feedSlice = createSlice({
         state.total = action.payload.total;
         state.totalToday = action.payload.totalToday;
       })
-      .addCase(getUserOrders.rejected, () => {
-        console.log('Ошибка загрузки данных о заказах пользователя');
+      .addCase(getUserOrders.rejected, (state, action) => {
+        action.error.message && (state.userOrdersError = action.error.message);
       })
       .addCase(getUserOrders.fulfilled, (state, action) => {
         state.userOrders = action.payload;
@@ -69,3 +71,5 @@ export const {
   totalTodaySelector,
   userOrdersSelector
 } = feedSlice.selectors;
+
+export default feedSlice.reducer;

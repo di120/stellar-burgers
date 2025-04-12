@@ -9,14 +9,15 @@ import {
 } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
-import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
+import { deleteCookie, getCookie, setCookie } from '../../utils/cookie';
 
-type TUserState = {
+export type TUserState = {
   isAuthChecked: boolean;
   user: TUser | null;
   loginUserError: string | null;
   loginUserRequest: boolean;
   registerUserError: string | null;
+  logoutUserError: string | null;
   updateUserError: string | null;
 };
 
@@ -26,6 +27,7 @@ const initialState: TUserState = {
   loginUserError: null,
   loginUserRequest: false,
   registerUserError: null,
+  logoutUserError: null,
   updateUserError: null
 };
 
@@ -117,6 +119,7 @@ export const userSlice = createSlice({
       .addCase(registerUser.pending, (state) => {
         state.loginUserRequest = true;
         state.loginUserError = null;
+        state.registerUserError = null;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loginUserRequest = false;
@@ -126,12 +129,17 @@ export const userSlice = createSlice({
       .addCase(registerUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.loginUserRequest = false;
-        state.isAuthChecked = true;
       })
-      .addCase(logoutUser.rejected, () => {
-        console.log('Ошибка выполнения выхода');
+      .addCase(logoutUser.rejected, (state, action) => {
+        action.error.message && (state.logoutUserError = action.error.message);
       })
-      .addCase(logoutUser.fulfilled, () => initialState)
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.loginUserError = null;
+        state.logoutUserError = null;
+        state.registerUserError = null;
+        state.updateUserError = null;
+      })
       .addCase(updateUser.rejected, (state, action) => {
         action.error.message && (state.updateUserError = action.error.message);
       })
@@ -151,3 +159,5 @@ export const {
 } = userSlice.selectors;
 
 export const { setUser, setIsAuthChecked } = userSlice.actions;
+
+export default userSlice.reducer;

@@ -5,7 +5,7 @@ import {
   updateErrorSelector,
   updateUser,
   userSelector
-} from '../../services/userSlice';
+} from '../../services/user/userSlice';
 import { TRegisterData } from '@api';
 
 export const Profile: FC = () => {

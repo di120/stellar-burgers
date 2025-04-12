@@ -6,8 +6,11 @@ import { useDispatch, useSelector } from '../../services/store';
 import {
   getIngredients,
   ingridientsSelector
-} from '../../services/ingridientsSlice';
-import { getOrderInfo, orderInfoSelector } from '../../services/orderInfoSlice';
+} from '../../services/ingredients/ingridientsSlice';
+import {
+  getOrderInfo,
+  orderInfoSelector
+} from '../../services/order/orderInfoSlice';
 import { useParams } from 'react-router-dom';
 
 export const OrderInfo: FC = () => {
