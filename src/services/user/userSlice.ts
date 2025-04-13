@@ -21,7 +21,7 @@ export type TUserState = {
   updateUserError: string | null;
 };
 
-const initialState: TUserState = {
+export const initialState: TUserState = {
   isAuthChecked: false,
   user: null,
   loginUserError: null,

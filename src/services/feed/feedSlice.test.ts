@@ -2,20 +2,10 @@ import { TOrder } from '@utils-types';
 import getFeedReducer, {
   getFeed,
   getUserOrders,
-  TFeedState
+  initialState
 } from './feedSlice';
 
 describe('тесты редьюсера ленты заказов', () => {
-  let initialState: TFeedState = {
-    orders: [],
-    total: 0,
-    totalToday: 0,
-    loading: false,
-    error: null,
-    userOrders: [],
-    userOrdersError: null
-  };
-
   const mockOrders: TOrder[] = [
     {
       _id: '1',
@@ -36,18 +26,6 @@ describe('тесты редьюсера ленты заказов', () => {
       ingredients: []
     }
   ];
-
-  afterEach(() => {
-    initialState = {
-      orders: [],
-      total: 0,
-      totalToday: 0,
-      loading: false,
-      error: null,
-      userOrders: [],
-      userOrdersError: null
-    };
-  });
 
   describe('изменение состояния при запросе getFeed', () => {
     test('изменения при ожидании ответа', () => {

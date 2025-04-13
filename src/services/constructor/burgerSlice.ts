@@ -12,7 +12,7 @@ export type TBurgerState = {
   orderInfo: TOrder | null;
 };
 
-const initialState: TBurgerState = {
+export const initialState: TBurgerState = {
   burgerIngredients: [],
   buns: null,
   ingridientsCount: 0,

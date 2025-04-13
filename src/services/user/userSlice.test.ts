@@ -6,7 +6,8 @@ import userSliceReducer, {
   setIsAuthChecked,
   setUser,
   TUserState,
-  updateUser
+  updateUser,
+  initialState as initialEmptyState
 } from './userSlice';
 
 describe('тесты редьюсера пользователя', () => {
@@ -18,16 +19,6 @@ describe('тесты редьюсера пользователя', () => {
   let mockUpdatedUserData: TUser = {
     email: 'NewEmail@email',
     name: 'NewName'
-  }
-
-  let initialEmptyState: TUserState = {
-    isAuthChecked: false,
-    user: null,
-    loginUserError: null,
-    loginUserRequest: false,
-    registerUserError: null,
-    logoutUserError: null,
-    updateUserError: null
   };
 
   let initialStateWithUser: TUserState = {
@@ -54,16 +45,6 @@ describe('тесты редьюсера пользователя', () => {
     mockUserData = {
       email: 'email@email',
       name: 'Name'
-    };
-
-    initialEmptyState = {
-      isAuthChecked: false,
-      user: null,
-      loginUserError: null,
-      loginUserRequest: false,
-      registerUserError: null,
-      logoutUserError: null,
-      updateUserError: null
     };
 
     initialStateWithUser = {
@@ -192,7 +173,10 @@ describe('тесты редьюсера пользователя', () => {
       expect(resultState.updateUserError).toBe('error');
     });
     test('изменения при успешном ответе', () => {
-      const action = { type: updateUser.fulfilled.type, payload: { user: mockUpdatedUserData } };
+      const action = {
+        type: updateUser.fulfilled.type,
+        payload: { user: mockUpdatedUserData }
+      };
       const resultState = userSliceReducer(initialStateWithUser, action);
 
       expect(resultState.updateUserError).toBe(null);

@@ -6,7 +6,8 @@ import burgerSliceReducer, {
   removeIngredient,
   resetConstructor,
   TBurgerState,
-  orderBurger
+  orderBurger,
+  initialState as initialEmpty
 } from './burgerSlice';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
 
@@ -93,25 +94,7 @@ describe('тесты редьюсера конструктора бургера'
     orderInfo: null
   };
 
-  let initialEmpty: TBurgerState = {
-    burgerIngredients: [],
-    buns: null,
-    ingridientsCount: 0,
-    orderRequest: false,
-    orderError: null,
-    orderInfo: null
-  };
-
   afterEach(() => {
-    initialEmpty = {
-      burgerIngredients: [],
-      buns: null,
-      ingridientsCount: 0,
-      orderRequest: false,
-      orderError: null,
-      orderInfo: null
-    };
-
     initialWithIng = {
       burgerIngredients: [
         ingredientConstructorMock1,
@@ -134,6 +117,7 @@ describe('тесты редьюсера конструктора бургера'
     const expectedBun = { ...bunMock, id: expect.any(String) };
 
     const resultCount = resultState.ingridientsCount;
+    console.debug(initialEmpty);
 
     expect(resultBun).toEqual(expectedBun);
     expect(resultCount).toBe(1);
@@ -217,13 +201,13 @@ describe('тесты редьюсера конструктора бургера'
 
   test('изменение состояния при успешном ответе orderBurger', () => {
     const mockOrderData = {
-        _id: '1',
-        status: '',
-        name: '',
-        createdAt: '',
-        updatedAt: '',
-        number: 1,
-        ingredients: []
+      _id: '1',
+      status: '',
+      name: '',
+      createdAt: '',
+      updatedAt: '',
+      number: 1,
+      ingredients: []
     };
 
     const action = {
@@ -235,6 +219,5 @@ describe('тесты редьюсера конструктора бургера'
 
     expect(resultState.orderRequest).toBe(false);
     expect(resultState.orderInfo).toEqual(mockOrderData);
-
   });
 });

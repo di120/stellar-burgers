@@ -1,48 +1,27 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './store';
-import orderSliceReducer from './order/orderInfoSlice';
-import burgerSliceReducer from './constructor/burgerSlice';
-import feedSliceReducer from './feed/feedSlice';
-import ingridientsSliceReducer from './ingredients/ingridientsSlice';
-import userSliceReducer from './user/userSlice';
+import burgerSliceReducer, {
+  initialState as initialBurgerState
+} from './constructor/burgerSlice';
+import feedSliceReducer, {
+  initialState as initialFeedState
+} from './feed/feedSlice';
+import ingridientsSliceReducer, {
+  initialState as initialIngredientsState
+} from './ingredients/ingridientsSlice';
+import userSliceReducer, {
+  initialState as initialUserState
+} from './user/userSlice';
+import orderSliceReducer, {
+  initialState as initialOrderState
+} from './order/orderInfoSlice';
 
 const initialStoreExpected = {
-  '/orders/number': {
-    error: null,
-    loading: false,
-    order: []
-  },
-  burger: {
-    buns: null,
-    burgerIngredients: [],
-    ingridientsCount: 0,
-    orderError: null,
-    orderInfo: null,
-    orderRequest: false
-  },
-  feed: {
-    error: null,
-    loading: false,
-    orders: [],
-    total: 0,
-    totalToday: 0,
-    userOrders: [],
-    userOrdersError: null
-  },
-  ingredients: {
-    error: null,
-    ingridients: [],
-    loading: false
-  },
-  user: {
-    isAuthChecked: false,
-    loginUserError: null,
-    loginUserRequest: false,
-    logoutUserError: null,
-    registerUserError: null,
-    updateUserError: null,
-    user: null
-  }
+  '/orders/number': initialOrderState,
+  burger: initialBurgerState,
+  feed: initialFeedState,
+  ingredients: initialIngredientsState,
+  user: initialUserState
 };
 
 test('правильная инициализация rootReducer', () => {
@@ -66,5 +45,7 @@ test('правильная инициализация rootReducer', () => {
     userSliceReducer(undefined, { type: '' })
   );
 
-  expect(rootReducer(undefined, { type: 'UNKNOWN_ACTION' })).toEqual(initialStoreExpected);
+  expect(rootReducer(undefined, { type: 'UNKNOWN_ACTION' })).toEqual(
+    initialStoreExpected
+  );
 });
