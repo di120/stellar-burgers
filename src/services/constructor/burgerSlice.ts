@@ -3,7 +3,7 @@ import { BurgerIngredient } from '@components';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
 
-type TBurgerState = {
+export type TBurgerState = {
   burgerIngredients: TConstructorIngredient[];
   buns: TConstructorIngredient | null;
   ingridientsCount: number;
@@ -12,7 +12,7 @@ type TBurgerState = {
   orderInfo: TOrder | null;
 };
 
-const initialState: TBurgerState = {
+export const initialState: TBurgerState = {
   burgerIngredients: [],
   buns: null,
   ingridientsCount: 0,
@@ -102,3 +102,5 @@ export const {
   moveUp,
   resetConstructor
 } = burgerSlice.actions;
+
+export default burgerSlice.reducer;

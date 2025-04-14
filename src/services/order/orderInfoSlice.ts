@@ -1,14 +1,14 @@
 import { getOrderByNumberApi } from '@api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { TOrder } from '../utils/types';
+import { TOrder } from '../../utils/types';
 
-type TOrderInfoState = {
+export type TOrderInfoState = {
   order: TOrder[];
   loading: boolean;
   error: string | null;
 };
 
-const initialState: TOrderInfoState = {
+export const initialState: TOrderInfoState = {
   order: [],
   loading: false,
   error: null
@@ -56,3 +56,5 @@ export const { orderInfoSelector, orderNumberSelector } =
   orderInfoSlice.selectors;
 
 export const { orderReset } = orderInfoSlice.actions;
+
+export default orderInfoSlice.reducer;

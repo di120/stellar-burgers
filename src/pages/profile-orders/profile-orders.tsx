@@ -2,7 +2,10 @@ import { getOrdersApi } from '@api';
 import { ProfileOrdersUI } from '@ui-pages';
 import { TOrder } from '@utils-types';
 import { FC, useEffect } from 'react';
-import { getUserOrders, userOrdersSelector } from '../../services/feedSlice';
+import {
+  getUserOrders,
+  userOrdersSelector
+} from '../../services/feed/feedSlice';
 import { useDispatch, useSelector } from '../../services/store';
 
 export const ProfileOrders: FC = () => {

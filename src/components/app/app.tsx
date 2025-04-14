@@ -17,8 +17,11 @@ import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from '../../services/store';
-import { checkUserAuth } from '../../services/userSlice';
-import { orderNumberSelector, orderReset } from '../../services/orderInfoSlice';
+import { checkUserAuth } from '../../services/user/userSlice';
+import {
+  orderNumberSelector,
+  orderReset
+} from '../../services/order/orderInfoSlice';
 
 const App = () => {
   const dispatch = useDispatch();
